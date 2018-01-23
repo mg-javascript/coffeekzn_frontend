@@ -1,0 +1,69 @@
+.vue-map {
+  position: relative;
+}
+
+.map-container {
+  top: 0;
+  right: 0;
+  background: #999;
+  height: 100vh;
+}
+
+ .map-container .vue-map-container .vue-map {
+  width: 100%;
+  height: 100vh;
+}
+
+.coffee_title a {
+  font-weight: bold;
+  color: #000;
+}
+
+.card-title {
+  font-size: 3.5em;
+}
+
+.custom_title {
+  margin-top: 0px !important;
+}
+
+.label_margin {
+  margin-right: 5px;
+}
+
+.coffee_title a:hover {
+  color: #52b00c;
+}
+
+.navbar-brand {
+  color: #fff !important;
+}
+
+.place_title {
+  font-weight: bold;
+  font-size: 5em;
+}
+
+.navbar-nav .nav-item a {
+  color: #fff !important;
+}
+
+.label-custom {
+  background-color: #52b00c;
+}
+
+.no-gutter.row,
+.no-gutter.container,
+.no-gutter.container-fluid {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.no-gutter>[class^="col-"] {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.upcase {
+  text-transform: uppercase;
+}
