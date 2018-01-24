@@ -3,25 +3,25 @@
     <div class="page-header page-header-xs settings-background" style="background-image: url('/bg.jpg');">
       <div class="filter"></div>
     </div>
-        
     <div class="container">
       <div class="row">
           <div class="col-md-12 ml-auto mr-auto text-center title custom_title">
               <h2 class="place_title">{{ place.title }}</h2>
               <h3 class="title-uppercase"><small>{{ place.working_hours }}</small></h3>
+              <h3 class="title-uppercase phone_str"><small>{{ place.phone }}</small></h3>
               <h3>{{ place.address }}</h3>
               <br/>
               <div class="col-md-12">
-                <button v-if='place.website' class="btn btn-just-icon btn-link btn-twitter">
+                <button v-on:click="socialRedirect(place.website)" v-if='place.website' class="btn btn-just-icon btn-link btn-twitter">
                     <i class="fa fa-safari" aria-hidden="true"></i>
                 </button>
-                <button v-if='place.twitter' class="btn btn-just-icon btn-link btn-twitter">
+                <button v-on:click="socialRedirect(place.twitter)" v-if='place.twitter' class="btn btn-just-icon btn-link btn-twitter">
                     <i class="fa fa-twitter" aria-hidden="true"></i>
                 </button>
-                <button v-if='place.facebook' class="btn btn-just-icon btn-link btn-facebook">
+                <button v-on:click="socialRedirect(place.facebook)" v-if='place.facebook' class="btn btn-just-icon btn-link btn-facebook">
                     <i class="fa fa-facebook" aria-hidden="true"></i>
                 </button>
-                <button v-if='place.instagram' class="btn btn-just-icon btn-link btn-instagram">
+                <button v-on:click="socialRedirect(place.instagram)" v-if='place.instagram' class="btn btn-just-icon btn-link btn-instagram">
                     <i class="fa fa-instagram" aria-hidden="true"></i>
                 </button>
 							</div>
@@ -34,7 +34,51 @@
       </div>
       <div class="row">
         <div class="col-md-6 ml-auto mr-auto text-center title custom_title">
-            <div class="title-uppercase text-left">{{ place.description }}</div>
+          <div class="title-uppercase text-left">{{ place.description }}</div>
+        </div>
+        <div class="col-md-12 ml-auto mr-auto text-center title custom_title">
+          <div class="col-md-12">
+            <span v-for="tag, index in place.tags" class="label label-custom label_margin">#{{ tag }}</span>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6 ml-auto mr-auto text-center title custom_title">
+          <h3>Индекс кофейни</h3>
+          <ul class='leaders text-left title-uppercase text-left'>
+            <li v-if='place.espresso_price'>
+              <span>Эспрессо</span>
+              <span>{{ place.espresso_price }}</span>
+            </li>
+            <li v-if='place.cappuccino_price'>
+              <span>Капучино</span>
+              <span>{{ place.cappuccino_price }}</span>
+            </li>
+            <li v-if='place.roasting'>
+              <span>Обжарка</span>
+              <span>{{ place.roasting }}</span>
+            </li>
+            <li v-if='place.sell_in_beans'>
+              <span>Продажа кофе в зёрнах</span>
+              <span>{{ formatBoolean(place.sell_in_beans) }}</span>
+            </li>
+            <li v-if='place.alternate'>
+              <span>Альтернатива</span>
+              <span>{{ formatBoolean(place.alternate) }}</span>
+            </li>
+            <li v-if='place.merchandise'>
+              <span>Продажа аксессуаров</span>
+              <span>{{ formatBoolean(place.merchandise) }}</span>
+            </li>
+            <li v-if='place.coffee_machine'>
+              <span>Марка кофемашины</span>
+              <span>{{ place.coffee_machine }}</span>
+            </li>
+            <li v-if='place.features'>
+              <span>Дополнительно</span>
+              <span>{{ place.features }}</span>
+            </li>
+          </ul>
         </div>
       </div>
     </div>
@@ -61,13 +105,14 @@ import apollo from '~/lib/apollo'
 import { mapDefaults } from '~/lib/const'
 import gql from 'graphql-tag'
 import google from 'vue2-google-maps'
+import boolMixin from '~/helpers/view_helper.js'
 
 export default {
   async asyncData ({ params }) {
     const { data } = await apollo.query({
       query: gql`{
         shop(id:"${params.id}") {
-          id, title, description, address, slug, tags, location { lat, lng }, working_hours, instagram, twitter, facebook, website, email
+          id, title, description, address, slug, tags, location { lat, lng }, working_hours, instagram, twitter, facebook, website, email, espresso_price, cappuccino_price, phone, roasting, features, coffee_machine, sell_in_beans, alternate, merchandise
         }
       }`
     })
@@ -77,6 +122,7 @@ export default {
       shouldRender: false,
       center: { lat: 55.8304307, lng: 49.0660806 },
       place: data.shop,
+      mixins: [boolMixin],
       styles: [
         {
           'elementType': 'geometry',
@@ -248,9 +294,6 @@ export default {
     place (place) {
       if (place) {
         const bounds = new google.maps.LatLngBounds()
-        // for (let m of places) {
-        //   bounds.extend(m.latLng)
-        // }
         this.$refs.map.$mapObject.fitBounds(bounds)
         this.$refs.map.$mapObject.setCenter(bounds.getCenter())
         this.$refs.map.$mapObject.event.addDomListener(window, 'resize', function () {
@@ -266,20 +309,23 @@ export default {
         lng: center.lng()
       }
     },
+    socialRedirect: function (link) {
+      window.open(
+        link,
+        '_blank'
+      )
+    },
     toggleInfoWindow: function (marker, idx) {
       this.infoWindowPos = marker.location
       this.infoWindowLocation = marker
-      // check if its the same marker that was selected if yes toggle
       if (this.currentMidx === idx) {
         this.infoWinOpen = !this.infoWinOpen
       } else {
-        // if different marker set infowindow to open and reset current marker index
         this.infoWinOpen = true
         this.currentMidx = idx
       }
     }
   },
-
   mounted () {
     this.shouldRender = true
   }
