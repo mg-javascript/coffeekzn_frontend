@@ -75,10 +75,23 @@ module.exports = {
       }
     }
   },
+  modules: [
+    [
+      '@nuxtjs/yandex-metrika',
+      {
+        id: '47433361',
+        webvisor: true,
+        // clickmap:true,
+        // trackLinks:true,
+        // accurateTrackBounce:true,
+      }
+    ]
+  ],  
   /*
   ** Plugins
   */
   plugins: [
-    '~plugins/maps'
+    '~plugins/maps',
+    { src: '~plugins/ga.js', ssr: false }
   ]
 }
