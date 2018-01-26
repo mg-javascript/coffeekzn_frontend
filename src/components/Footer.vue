@@ -11,7 +11,7 @@
 				</nav>
 				<div class="credits ml-auto">
 					<span class="copyright">
-						© <script>document.write(new Date().getFullYear())</script>2018, made with <i class="fa fa-heart heart"></i>
+						© <script>document.write(new Date().getFullYear())</script>2018, made with <i class="fa fa-heart heart"></i> Kazan
 					</span>
 				</div>
 			</div>

@@ -2358,15 +2358,15 @@ textarea.form-control {
   transition: all 0.3s cubic-bezier(0.215, 0.61, 0.355, 1) 0s, opacity 0.3s ease 0s, height 0s linear 0.35s;
 }
 
-.navbar-toggler {
+/* .navbar-toggler {
   outline: none !important;
   cursor: pointer;
   padding: 0 1rem 1rem;
-}
-.navbar .navbar-toggler .navbar-toggler-bar {
+} */
+/* .navbar .navbar-toggler .navbar-toggler-bar {
   background: #66615b;
-}
-.navbar[class*="bg-"] .navbar-toggler .navbar-toggler-bar, .navbar.navbar-transparent .navbar-toggler .navbar-toggler-bar {
+} */
+/* .navbar[class*="bg-"] .navbar-toggler .navbar-toggler-bar, .navbar.navbar-transparent .navbar-toggler .navbar-toggler-bar {
   background: #fff;
 }
 .navbar-toggler .navbar-toggler-bar {
@@ -2376,9 +2376,9 @@ textarea.form-control {
   height: 2px;
   border-radius: 1px;
   margin: 0 auto;
-}
+} */
 
-.navbar-toggler .navbar-toggler-bar + .navbar-toggler-bar,
+/* .navbar-toggler .navbar-toggler-bar + .navbar-toggler-bar,
 .navbar-toggler .navbar-toggler-icon + .navbar-toggler-icon {
   margin-top: 4px;
 }
@@ -2399,7 +2399,7 @@ textarea.form-control {
   border-radius: 1px;
   margin: 0 auto;
   background: gray;
-}
+} */
 
 .no-transition {
   -webkit-transition: none;

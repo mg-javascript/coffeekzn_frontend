@@ -3,15 +3,18 @@ const { resolve } = require('path')
 
 module.exports = {
   srcDir: resolve('./src'),
-  /*
-  ** Headers of the page
-  */
   head: {
     title: 'COFFEEKZN',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: 'SMARTAPPS project' }
+      { hid: 'description', name: 'description', content: 'Каталог лучших кофеен Казани, где вы гарантированно получите отличный кофе' },
+      { property: 'og-title', content: 'Кофейная карта Казани' },
+      { property: 'og-type', content: 'website' },
+      { property: 'og-url', content: 'http://coffeekzn.ru' },
+      { property: 'pg:description', content: 'Каталог лучших кофеен Казани, где вы гарантированно получите отличный кофе' },
+      { property: 'og:image', content: 'coffeekzn.ru/coffee.png' },
+      { property: 'og:site_name', content: "Кофейная карта Казани" }
     ],
     bodyAttrs: {
       class: 'search'
@@ -31,7 +34,8 @@ module.exports = {
       { rel: 'icon', type: 'image/png', href: '/favicon-96x96.png' },
       { rel: 'icon', type: 'image/png', href: '/favicon-16x16.png' },
       { rel: 'stylesheet', type: 'text/css', href: 'http://fonts.googleapis.com/css?family=Montserrat:400,300,700' },
-      { rel: 'stylesheet', href: 'http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css' }
+      { rel: 'stylesheet', href: 'http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css' },
+      { rel: 'stylesheet', type: 'text/css', href: 'http://fonts.googleapis.com/css?family=Rammetto+One' }
     ],
     script: [
       { src: '/js/jquery.js' }, 

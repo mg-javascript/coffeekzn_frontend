@@ -99,4 +99,37 @@ ul.leaders span + span {
 
 .phone_str small {
   font-weight: bold;
-}  
+}
+
+.font_title {
+  font-family: 'Rammetto One', cursive;
+  font-size: 1.5em !important;
+  font-weight: normal !important;
+}
+
+.section {
+  padding: 20px !important;
+}
+
+.navbar-dark .navbar-toggler {
+  color: rgba(255,255,255,.5);
+  border-color: rgba(255,255,255,.1);
+}
+
+.navbar-toggler:focus, .navbar-toggler:hover {
+  text-decoration: none;
+}
+
+.navbar {
+  padding: .5rem 1rem !important;
+}
+
+.navbar-toggler-icon {
+  display: inline-block;
+  width: 1.5em;
+  height: 1.5em;
+  vertical-align: middle;
+  content: "";
+  background: no-repeat center center;
+  background-size: 100% 100%;
+}
