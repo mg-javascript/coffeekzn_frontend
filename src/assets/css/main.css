@@ -20,7 +20,7 @@
 }
 
 .card-title {
-  font-size: 3.5em;
+  font-size: 1.5em;
 }
 
 .custom_title {
@@ -108,7 +108,7 @@ ul.leaders span + span {
 }
 
 .section {
-  padding: 20px !important;
+  padding-top: 20px !important;
 }
 
 .navbar-dark .navbar-toggler {
@@ -132,4 +132,19 @@ ul.leaders span + span {
   content: "";
   background: no-repeat center center;
   background-size: 100% 100%;
+}
+
+.card {
+  max-width: 100%;
+}
+
+.card-title a {
+  word-break: break-all;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.event-col, .shop_col {
+  padding-left: 5px !important;
+  padding-right: 5px !important;
 }

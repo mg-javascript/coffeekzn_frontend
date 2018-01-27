@@ -1,12 +1,12 @@
 <template>
   <div class="section section-white section-search">
-    <div class="col-md-8 col-12 ml-auto mr-auto text-center">
+    <div class="col-md-8 col-12 ml-auto mr-auto text-center shop_col">
       <div class="row">
         <div class="text-center col-md-12 col-12 ml-auto mr-auto text-center">
           <div role="search" class="form-inline search-form">
             <div class="input-group no-border">
               <span class="input-group-addon addon-xtreme no-border" id="basic-addon1"><i class="fa fa-search"></i></span>
-              <input type="text" v-model='search' class="form-control input-xtreme no-border" placeholder="Поиск кофеен" aria-describedby="basic-addon1">
+              <input type="text" v-model='search' class="form-control input-xtreme no-border" placeholder="Поиск" aria-describedby="basic-addon1">
             </div>
           </div>
         </div>
