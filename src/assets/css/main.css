@@ -148,3 +148,11 @@ ul.leaders span + span {
   padding-left: 5px !important;
   padding-right: 5px !important;
 }
+
+.option_title {
+  margin-bottom: 20px;
+}
+
+.place_link:hover {
+  color: #52b00c;
+}

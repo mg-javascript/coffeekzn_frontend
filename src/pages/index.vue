@@ -12,7 +12,7 @@
         </div>
       </div>
       <div class="col-md-12 event-col" v-for="place, index in filteredList">
-        <div class="card" data-background="image" style="background-image: url('/bg.jpg')">
+        <div class="card no-transition" data-background="image" style="background-image: url('/bg.jpg')">
           <div class="card-body">
             <h6 class="кофейня">
             <i class="fa fa-newspaper-o"></i> кофейня</h6>

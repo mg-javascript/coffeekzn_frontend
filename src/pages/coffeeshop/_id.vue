@@ -6,9 +6,13 @@
     <div class="container">
       <div class="row">
           <div class="col-md-12 ml-auto mr-auto text-center title custom_title">
-              <h2 class="place_title">{{ place.title }}</h2>
+              <h2 class="place_title title-uppercase">{{ place.title }}</h2>
               <h3 class="title-uppercase"><small>{{ place.working_hours }}</small></h3>
-              <h3 class="title-uppercase phone_str"><small>{{ place.phone }}</small></h3>
+              <h3 class="title-uppercase phone_str">
+                <small>
+                  <a class='place_link' :href="`tel:${place.phone}`">{{ place.phone }}</a>
+                </small>
+                </h3>
               <h3>{{ place.address }}</h3>
               <br/>
               <div class="col-md-12">
@@ -29,7 +33,7 @@
       </div>
       <div class="row" v-if='place.email'>
         <div class="col-md-6 ml-auto mr-auto text-center title custom_title">
-            <div class="title-uppercase text-center"><a :href="`mailto:${place.email}`">{{ place.email }}</a></div>
+            <div class="title-uppercase text-center"><a class='place_link' :href="`mailto:${place.email}`">{{ place.email }}</a></div>
         </div>
       </div>
       <div class="row">
@@ -44,7 +48,7 @@
       </div>
       <div class="row">
         <div class="col-md-6 ml-auto mr-auto text-center title custom_title">
-          <h3>Индекс кофейни</h3>
+          <h3 class="option_title">Индекс кофейни</h3>
           <ul class='leaders text-left title-uppercase text-left'>
             <li v-if='place.espresso_price'>
               <span>Эспрессо</span>
