@@ -21,9 +21,9 @@
               {{ place.title }}
               </router-link>
             </div>
-            <div class="card-description">
+            <div class="card-description" v-for="registration, index in place.registrations">
               <div class="col-md-12 upcase">
-								{{ place.address }}
+								{{ registration.address }}
               </div>
 						</div>
             <div class="card-description">
@@ -56,7 +56,7 @@ export default {
     const { data } = await apollo.query({
       query: gql`{
         shops {
-          id, title, description, address, tags, slug, location { lat, lng }, working_hours
+          id, title, description, registrations { phone, address,  location { lat, lng } }, tags, slug, working_hours
         }
       }`
     })

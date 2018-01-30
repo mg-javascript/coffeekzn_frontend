@@ -1,6 +1,6 @@
 <template>
   <div class="map_div">
-    <div class="page-header page-header-xs settings-background" style="background-image: url('/bg.jpg');">
+    <div class="page-header page-header-xs settings-background" :style='`background-image: url("${place.preview_image}")`'>
       <div class="filter"></div>
     </div>
     <div class="container">
@@ -10,10 +10,14 @@
               <h3 class="title-uppercase"><small>{{ place.working_hours }}</small></h3>
               <h3 class="title-uppercase phone_str">
                 <small>
-                  <a class='place_link' :href="`tel:${place.phone}`">{{ place.phone }}</a>
+                  <a class='place_link' :href="`tel:353`">353</a>
                 </small>
-                </h3>
-              <h3>{{ place.address }}</h3>
+              </h3>
+              <div class="row">
+                <div class="col-md-8 ml-auto mr-auto text-center title">
+                        <h5 class='title-uppercase text-left' v-for="tag, index in place.registrations">{{ tag.address }}</h5>
+                </div>
+              </div>
               <br/>
               <div class="col-md-12">
                 <button v-on:click="socialRedirect(place.website)" v-if='place.website' class="btn btn-just-icon btn-link btn-twitter">
@@ -89,16 +93,40 @@
 
     <div class="map-container-page">
       <gmap-map
-      :center='place.location'
-      :zoom='15'
+      :center='place.registrations[0].location'
+      :zoom='10'
       :options='{ styles: styles }'
       style='width: 100%; height: 300px'
       v-if='shouldRender'
       >
+      <gmap-info-window
+        v-if='infoWindowRegistration'
+        :options='infoOptions'
+        :position='infoWindowPos'
+        :opened='infoWinOpen'
+        @closeclick='infoWinOpen=false'
+      >
+      <div class="coffee_info">
+        <h2 class="coffee_title">
+          <router-link :to="{ name: 'coffeeshop-id', params: { id: infoWindowRegistration.id }}">
+            {{ place.title }}
+          </router-link>
+        </h2>
+        <h4 class="price upcase"><strong>{{ infoWindowRegistration.phone }}</strong></h4>
+        <hr/>
+        <p>{{ infoWindowRegistration.address }}</p>
+        <br/>
+        <span v-for="tag, index in infoWindowRegistration.tags" class="label label-custom label_margin">#{{ tag }}</span>
+        </div>
+      </gmap-info-window>
+
       <gmap-marker
-        :position='place.location'
+        v-for='(m, index) in place.registrations'
+        :position='m.location'
         :draggable='false'
         :clickable='true'
+        icon='/map.png'
+        @click='toggleInfoWindow(m, index)'
       ></gmap-marker>
     </gmap-map>
     </div>
@@ -117,7 +145,7 @@ export default {
     const { data } = await apollo.query({
       query: gql`{
         shop(id:"${params.id}") {
-          id, title, description, address, slug, tags, location { lat, lng }, working_hours, instagram, twitter, facebook, website, email, espresso_price, cappuccino_price, phone, roasting, features, coffee_machine, sell_in_beans, alternate, merchandise
+          id, title, description, slug, tags, registrations { phone, address,  location { lat, lng } }, working_hours, instagram, twitter, facebook, website, email, espresso_price, cappuccino_price, roasting, features, coffee_machine, sell_in_beans, alternate, merchandise, preview_image
         }
       }`,
       result () {
@@ -145,14 +173,14 @@ export default {
   },
   watch: {
     place (place) {
-      if (place) {
-        const bounds = new google.maps.LatLngBounds()
-        this.$refs.map.$mapObject.fitBounds(bounds)
+     // if (place) {
+      const bounds = new google.maps.LatLngBounds()
+      this.$refs.map.$mapObject.fitBounds(bounds)
+      this.$refs.map.$mapObject.setCenter(bounds.getCenter())
+      this.$refs.map.$mapObject.event.addDomListener(window, 'resize', function () {
         this.$refs.map.$mapObject.setCenter(bounds.getCenter())
-        this.$refs.map.$mapObject.event.addDomListener(window, 'resize', function () {
-          this.$refs.map.$mapObject.setCenter(bounds.getCenter())
-        })
-      }
+      })
+     // }
     }
   },
   methods: {
@@ -170,7 +198,7 @@ export default {
     },
     toggleInfoWindow: function (marker, idx) {
       this.infoWindowPos = marker.location
-      this.infoWindowLocation = marker
+      this.infoWindowRegistration = marker
       if (this.currentMidx === idx) {
         this.infoWinOpen = !this.infoWinOpen
       } else {

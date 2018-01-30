@@ -1,5 +1,6 @@
 export const mapDefaults = {
-  infoWindowLocation: {},
+  infoWindowRegistration: {},
+  infoWindowPlace: {},
   gestureHandling: 'greedy',
   infoWindowPos: {
     lat: 0,

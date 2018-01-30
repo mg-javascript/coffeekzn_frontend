@@ -16,34 +16,36 @@
       v-if='shouldRender'
       >
       <gmap-info-window
-        v-if='infoWindowLocation'
+        v-if='infoWindowRegistration'
         :options='infoOptions'
         :position='infoWindowPos'
         :opened='infoWinOpen'
-        @closeclick='infoWinOpen=false'
-      >
-      <div class="coffee_info">
-        <h2 class="coffee_title">
-          <router-link :to="{ name: 'location-id', params: { id: infoWindowLocation.id }}">
-            {{ infoWindowLocation.title }}
-          </router-link>
-        </h2>
-        <h4 class="price upcase"><strong>{{ infoWindowLocation.working_hours }}</strong></h4>
-        <hr/>
-        <p>{{ infoWindowLocation.address }}</p>
-        <br/>
-        <span v-for="tag, index in infoWindowLocation.tags" class="label label-custom label_margin">#{{ tag }}</span>
-        </div>
+        :place='infoWindowPlace'
+        @closeclick='infoWinOpen=false'>
+          <div class="coffee_info">
+          <h2 class="coffee_title">
+            <router-link :to="{ name: 'coffeeshop-id', params: { id: infoWindowRegistration.id }}">
+              {{ infoWindowPlace.title }}
+            </router-link>
+          </h2>
+          <h4 class="price upcase"><strong>{{ infoWindowRegistration.phone }}</strong></h4>
+          <hr/>
+          <p>{{ infoWindowRegistration.address }}</p>
+          <br/>
+          <span v-for="tag, index in infoWindowPlace.tags" class="label label-custom label_margin">#{{ tag }}</span>
+          </div>
       </gmap-info-window>
 
-      <gmap-marker
-        v-for='(m, index) in places'
-        :position='m.location'
-        :draggable='false'
-        :clickable='true'
-        icon='map.png'
-        @click='toggleInfoWindow(m, index)'
-      ></gmap-marker>
+      <div v-for='place in places' v-bind:data="place" v-bind:key="place.title">
+        <gmap-marker
+          v-for='(registration, index) in place.registrations' v-bind:data="registration" v-bind:key="registration.id"
+          :position='registration.location'
+          :draggable='false'
+          :clickable='true'
+          icon='/map.png'
+          @click='toggleInfoWindow(registration, index, place)'
+        ></gmap-marker>
+      </div>
     </gmap-map>
     </div>
     </div>
@@ -64,7 +66,7 @@ export default {
     const { data } = await apollo.query({
       query: gql`{
         shops {
-          id, title, description, address, slug, tags, location { lat, lng }, working_hours
+          id, title, description, slug, tags, registrations { phone, address,  location { lat, lng } }, working_hours
         }
       }`
     })
@@ -75,11 +77,6 @@ export default {
       center: { lat: 55.8304307, lng: 49.0660806 },
       places: data.shops,
       styles: customMapColors
-    }
-  },
-  computed: {
-    renderPanorama () {
-      return this.infoWindowPos && this.infoWindowPos.lat && this.infoWindowPos.lng
     }
   },
   watch: {
@@ -104,14 +101,15 @@ export default {
         lng: center.lng()
       }
     },
-    toggleInfoWindow: function (marker, idx) {
-      this.infoWindowPos = marker.location
-      this.infoWindowLocation = marker
-      // check if its the same marker that was selected if yes toggle
+    toggleInfoWindow: function (registration, idx, place) {
+      this.infoWindowPos = registration.location
+      this.infoWindowRegistration = registration
+      this.infoWindowPlace = place
+      // check if its the same registration that was selected if yes toggle
       if (this.currentMidx === idx) {
         this.infoWinOpen = !this.infoWinOpen
       } else {
-        // if different marker set infowindow to open and reset current marker index
+        // if different registration set infowindow to open and reset current registration index
         this.infoWinOpen = true
         this.currentMidx = idx
       }
