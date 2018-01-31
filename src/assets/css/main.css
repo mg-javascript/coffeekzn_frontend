@@ -167,3 +167,11 @@ ul.leaders span + span {
   padding-left: 10px;
   padding-right: 10px;
 }
+
+.phone_num {
+  color: #212529;
+}
+
+.phone_num:hover {
+  color: #212529;
+}

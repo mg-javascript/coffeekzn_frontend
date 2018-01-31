@@ -107,16 +107,20 @@
         @closeclick='infoWinOpen=false'
       >
       <div class="coffee_info">
-        <h2 class="coffee_title">
+        <h3 class="coffee_title">
           <router-link :to="{ name: 'coffeeshop-id', params: { id: place.slug }}">
             {{ place.title }}
           </router-link>
-        </h2>
-        <h4 class="price upcase"><strong>{{ infoWindowRegistration.phone }}</strong></h4>
+        </h3>
+        <h5 class="price upcase">
+          <strong>
+            <a class='place_link phone_num' :href="`tel:${infoWindowRegistration.phone}`">{{ infoWindowRegistration.phone }}</a>
+          </strong>
+          </h5>
         <hr/>
         <p>{{ infoWindowRegistration.address }}</p>
         <br/>
-        <span v-for="tag, index in infoWindowRegistration.tags" class="label label-custom label_margin">#{{ tag }}</span>
+        <span v-for="tag, index in place.tags" class="label label-custom label_margin">#{{ tag }}</span>
         </div>
       </gmap-info-window>
 
@@ -148,9 +152,6 @@ export default {
           id, title, description, slug, tags, registrations { phone, address,  location { lat, lng } }, working_hours, instagram, twitter, facebook, website, email, espresso_price, cappuccino_price, roasting, features, coffee_machine, sell_in_beans, alternate, merchandise, preview_image
         }
       }`,
-      result () {
-        this.$root.error({'statusCode': 404, 'message': 'OK'})
-      },
       prefetch: true,
       fetchPolicy: 'network-only'
     })
@@ -160,7 +161,6 @@ export default {
     return {
       ...mapDefaults,
       shouldRender: false,
-      center: { lat: 55.8304307, lng: 49.0660806 },
       place: data.shop,
       mixins: [boolMixin],
       styles: customMapColors

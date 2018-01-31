@@ -23,12 +23,12 @@
         :place='infoWindowPlace'
         @closeclick='infoWinOpen=false'>
           <div class="coffee_info">
-          <h2 class="coffee_title">
+          <h3 class="coffee_title">
             <router-link :to="{ name: 'coffeeshop-id', params: { id: infoWindowPlace.slug }}">
               {{ infoWindowPlace.title }}
             </router-link>
-          </h2>
-          <h4 class="price upcase"><strong>{{ infoWindowRegistration.phone }}</strong></h4>
+          </h3>
+          <h5 class="price upcase"><strong>{{ infoWindowRegistration.phone }}</strong></h5>
           <hr/>
           <p>{{ infoWindowRegistration.address }}</p>
           <br/>
@@ -105,11 +105,9 @@ export default {
       this.infoWindowPos = registration.location
       this.infoWindowRegistration = registration
       this.infoWindowPlace = place
-      // check if its the same registration that was selected if yes toggle
       if (this.currentMidx === idx) {
         this.infoWinOpen = !this.infoWinOpen
       } else {
-        // if different registration set infowindow to open and reset current registration index
         this.infoWinOpen = true
         this.currentMidx = idx
       }
