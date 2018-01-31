@@ -54,27 +54,27 @@
         <div class="col-md-6 ml-auto mr-auto text-center title custom_title">
           <h3 class="option_title">Индекс кофейни</h3>
           <ul class='leaders text-left title-uppercase text-left'>
-            <li v-if='place.espresso_price'>
+            <li>
               <span>Эспрессо</span>
-              <span>{{ place.espresso_price }}</span>
+              <span>{{ formatOption(place.espresso_price) }}</span>
             </li>
-            <li v-if='place.cappuccino_price'>
+            <li>
               <span>Капучино</span>
-              <span>{{ place.cappuccino_price }}</span>
+              <span>{{ formatOption(place.cappuccino_price) }}</span>
             </li>
-            <li v-if='place.roasting'>
+            <li>
               <span>Обжарка</span>
-              <span>{{ place.roasting }}</span>
+              <span>{{ formatOption(place.roasting) }}</span>
             </li>
-            <li v-if='place.sell_in_beans'>
+            <li>
               <span>Продажа кофе в зёрнах</span>
               <span>{{ formatBoolean(place.sell_in_beans) }}</span>
             </li>
-            <li v-if='place.alternate'>
+            <li>
               <span>Альтернатива</span>
               <span>{{ formatBoolean(place.alternate) }}</span>
             </li>
-            <li v-if='place.merchandise'>
+            <li>
               <span>Продажа аксессуаров</span>
               <span>{{ formatBoolean(place.merchandise) }}</span>
             </li>
@@ -173,14 +173,14 @@ export default {
   },
   watch: {
     place (place) {
-     // if (place) {
-      const bounds = new google.maps.LatLngBounds()
-      this.$refs.map.$mapObject.fitBounds(bounds)
-      this.$refs.map.$mapObject.setCenter(bounds.getCenter())
-      this.$refs.map.$mapObject.event.addDomListener(window, 'resize', function () {
+      if (place) {
+        const bounds = new google.maps.LatLngBounds()
+        this.$refs.map.$mapObject.fitBounds(bounds)
         this.$refs.map.$mapObject.setCenter(bounds.getCenter())
-      })
-     // }
+        this.$refs.map.$mapObject.event.addDomListener(window, 'resize', function () {
+          this.$refs.map.$mapObject.setCenter(bounds.getCenter())
+        })
+      }
     }
   },
   methods: {
