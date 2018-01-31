@@ -108,7 +108,7 @@
       >
       <div class="coffee_info">
         <h2 class="coffee_title">
-          <router-link :to="{ name: 'coffeeshop-id', params: { id: infoWindowRegistration.id }}">
+          <router-link :to="{ name: 'coffeeshop-id', params: { id: place.slug }}">
             {{ place.title }}
           </router-link>
         </h2>

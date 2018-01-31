@@ -24,7 +24,7 @@
         @closeclick='infoWinOpen=false'>
           <div class="coffee_info">
           <h2 class="coffee_title">
-            <router-link :to="{ name: 'coffeeshop-id', params: { id: infoWindowRegistration.id }}">
+            <router-link :to="{ name: 'coffeeshop-id', params: { id: infoWindowPlace.slug }}">
               {{ infoWindowPlace.title }}
             </router-link>
           </h2>
