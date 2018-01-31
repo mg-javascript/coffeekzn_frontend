@@ -7,18 +7,18 @@
       <div class="row">
           <div class="col-md-12 ml-auto mr-auto text-center title custom_title">
               <h2 class="place_title title-uppercase">{{ place.title }}</h2>
-              <h3 class="title-uppercase"><small>{{ place.working_hours }}</small></h3>
-              <h3 class="title-uppercase phone_str">
+              <h3 class="title-uppercase"><b>{{ place.working_hours }}</b></h3>
+              <h3 class="title-uppercase phone_str" v-if='place.registrations[0].phone'>
                 <small>
-                  <a class='place_link' :href="`tel:353`">353</a>
+                  <a class='place_link' :href="`tel:${place.registrations[0].phone}`">{{ place.registrations[0].phone }}</a>
                 </small>
               </h3>
               <div class="row">
-                <div class="col-md-8 ml-auto mr-auto text-center title">
-                        <h5 class='title-uppercase text-left' v-for="tag, index in place.registrations">{{ tag.address }}</h5>
+                <div class="ml-auto mr-auto text-center address_block">
+                  <h5 class='title-uppercase text-left' v-for="tag, index in place.registrations">{{ tag.address }}</h5>
                 </div>
               </div>
-              <br/>
+
               <div class="col-md-12">
                 <button v-on:click="socialRedirect(place.website)" v-if='place.website' class="btn btn-just-icon btn-link btn-twitter">
                     <i class="fa fa-safari" aria-hidden="true"></i>

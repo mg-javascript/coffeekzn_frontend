@@ -27,7 +27,7 @@
               </div>
 						</div>
             <div class="card-description">
-              <div class="col-md-12 upcase">
+              <div class="col-md-12 upcase work_hours">
 								{{ place.working_hours }}
               </div>
 						</div>

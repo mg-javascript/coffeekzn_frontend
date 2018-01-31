@@ -156,3 +156,14 @@ ul.leaders span + span {
 .place_link:hover {
   color: #52b00c;
 }
+
+.work_hours {
+  font-weight: bold;
+}
+
+.address_block {
+  margin-top: 20px;
+  margin-bottom: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
