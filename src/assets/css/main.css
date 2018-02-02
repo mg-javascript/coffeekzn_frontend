@@ -41,7 +41,7 @@
 
 .place_title {
   font-weight: bold;
-  font-size: 5em;
+  font-size: 2em;
 }
 
 .navbar-nav .nav-item a {
@@ -153,6 +153,11 @@ ul.leaders span + span {
   margin-bottom: 20px;
 }
 
+.place_link {
+  color: #52b00c !important;
+  font-weight: bolder;
+}
+
 .place_link:hover {
   color: #52b00c;
 }
@@ -174,4 +179,9 @@ ul.leaders span + span {
 
 .phone_num:hover {
   color: #212529;
+}
+
+.email_title {
+  padding-top: 10px;
+  margin-bottom: 15px !important;
 }

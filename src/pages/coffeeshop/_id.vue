@@ -5,7 +5,7 @@
     </div>
     <div class="container">
       <div class="row">
-          <div class="col-md-12 ml-auto mr-auto text-center title custom_title">
+          <div class="col-md-12 ml-auto mr-auto text-center custom_title">
               <h2 class="place_title title-uppercase">{{ place.title }}</h2>
               <h3 class="title-uppercase"><b>{{ place.working_hours }}</b></h3>
               <h3 class="title-uppercase phone_str" v-if='place.registrations[0].phone'>
@@ -35,12 +35,14 @@
 							</div>
           </div>
       </div>
-      <div class="row" v-if='place.email'>
-        <div class="col-md-6 ml-auto mr-auto text-center title custom_title">
-            <div class="title-uppercase text-center"><a class='place_link' :href="`mailto:${place.email}`">{{ place.email }}</a></div>
+      <div class="custom_row" v-if='place.email'>
+        <div class="col-md-6 ml-auto mr-auto text-center title custom_title email_title">
+            <div class="title-uppercase text-center">
+              <a class='place_link' :href="`mailto:${place.email}`">{{ place.email }}</a>
+            </div>
         </div>
       </div>
-      <div class="row">
+      <div class="row" v-if='place.description'>
         <div class="col-md-6 ml-auto mr-auto text-center title custom_title">
           <div class="title-uppercase text-left">{{ place.description }}</div>
         </div>
